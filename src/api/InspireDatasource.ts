@@ -17,10 +17,10 @@ export class InspireDatasource implements DataSource {
     max_count = MAXCOUNT
     email = 'feedback@inspirehep.net'
     help = `mailto:${this.email}`
-    shortname = 'Inspire'
-    longname = 'Inspire HEP'
+    shortname = 'INSPIRE'
+    longname = 'INSPIRE HEP'
     categories = new Set(['hep-th', 'hep-ex', 'hep-ph', 'hep-lat', 'gr-qc'])
-    homepage = 'https://inspirehep.net'
+    homepage = 'http://inspirehep.net'
     icon = icon
     logo = sourceLogo
     pagelength = MAXCOUNT
@@ -32,7 +32,7 @@ export class InspireDatasource implements DataSource {
     // https://labs.inspirehep.net/api/literature?q=arxiv:1602.03837
     //
 
-    url_paper = 'https://labs.inspirehep.net/literature'
+    url_paper = 'http://inspirehep.net/recid'
     url_author = 'https://labs.inspirehep.net/authors'
     api_url = 'https://labs.inspirehep.net/api/literature'
     api_params = {
