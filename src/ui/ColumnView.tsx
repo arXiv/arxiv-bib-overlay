@@ -100,10 +100,11 @@ export class ColumnView extends React.Component<{dataSource: DataSource, paperGr
             count_msg = `(${group_count})`
         }
 
-        const mailto = (
+        const report_link = (
+            datasource.email ?
             'mailto:' + datasource.email +
             '?subject=Reference and citation data for arXiv article ' +
-            get_current_article()
+            get_current_article() : group.header_url
         )
 
         const header = this.props.name.toLowerCase()
@@ -136,7 +137,7 @@ export class ColumnView extends React.Component<{dataSource: DataSource, paperGr
                 <div className='bib-branding bib-col-center'>
                   <div className='bib-col-aside bib-branding-info'>
                     <span>Data provided by:</span><br/>
-                    <span>(<a href={mailto}>report data issues</a>)</span>
+                    <span>(<a href={report_link}>report data issues</a>)</span>
                   </div>
                   <div className='bib-branding-logo'>
                     <a target='_blank' href={datasource.homepage}>
