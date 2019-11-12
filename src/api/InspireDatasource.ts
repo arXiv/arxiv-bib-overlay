@@ -32,7 +32,7 @@ export class InspireDatasource implements DataSource {
     // https://labs.inspirehep.net/api/literature?q=arxiv:1602.03837
     //
 
-    url_paper = 'http://inspirehep.net/recid'
+    url_paper = 'http://inspirehep.net/record'
     url_author = 'https://labs.inspirehep.net/authors'
     api_url = 'https://labs.inspirehep.net/api/literature'
     api_params = {
