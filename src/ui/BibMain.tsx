@@ -29,9 +29,9 @@ export class BibMain extends React.Component<{state: State}, {}> {
                 }
             }
         ).reduce((accu, elem) => ( accu === null ?
-            elem : <React.Fragment>{accu} | {elem}</React.Fragment>))
+            elem : <React.Fragment>{accu}|{elem}</React.Fragment>))
 
-        return (<span><span>Select data provider: </span>{sources}</span>)
+        return (<span className='bib-ds-select'><span>Select data provider: </span>{sources}</span>)
     }
 
     generate_messages() {
