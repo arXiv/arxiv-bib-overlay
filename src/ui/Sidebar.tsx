@@ -24,7 +24,7 @@ export class Sidebar extends React.Component<{state: State}, {}> {
         }
 
         const auth_elements = bib.paper.authors.map(
-            au => <li key={au.url}><a href={au.url} target='_blank'>{au.name}</a></li>
+            au => <li key={au.url}><a href={au.url} target='_blank' rel='noopener'>{au.name}</a></li>
         )
 
         let paper_title = bib.paper.title
@@ -36,14 +36,14 @@ export class Sidebar extends React.Component<{state: State}, {}> {
         if (auth_list.length > CONFIG.MAX_AUTHORS) {
             auth_list = auth_list.slice(0, CONFIG.MAX_AUTHORS)
             auth_list.push(
-                <li key={bib.paper.url}><a href={bib.paper.url} target='_blank'>...</a></li>
+                <li key={bib.paper.url}><a href={bib.paper.url} target='_blank'  rel='noopener'>...</a></li>
             )
         }
 
         return (
             <div className='bib-sidebar-paper' >
               <div className='bib-sidebar-title'>
-                <span><a href={bib.paper.url} target='_blank'>{paper_title}</a></span>
+                <span><a href={bib.paper.url} target='_blank' rel='noopener'>{paper_title}</a></span>
               </div>
               <ul className='bib-sidebar-authors'>{auth_list}</ul>
               <Outbound paper={bib.paper}/>

@@ -21,16 +21,15 @@ export class BibMain extends React.Component<{state: State}, {}> {
         }
 
         const sources = bib.availableDS.map(
-            (i): JSX.Element => {
+            (i) => {
                 if (bib.currentDS === i) {
                     return <span className='bib-selected'>{i.longname}</span>
                 } else {
                     return <span><a href='javascript:;' onClick={() => bib.setDS(i)}>{i.longname}</a></span>
                 }
             }
-        ).reduce(
-            (accu, elem) => accu === null ? elem : (<span>{accu}<span> | </span>{elem}</span>)
-        )
+        ).reduce((accu, elem) => ( accu === null ?
+            elem : <React.Fragment>{accu} | {elem}</React.Fragment>))
 
         return (<span><span>Select data provider: </span>{sources}</span>)
     }
@@ -67,10 +66,9 @@ export class BibMain extends React.Component<{state: State}, {}> {
                        contact <b><a href={ds.help}>{ds.longname}</a></b>.</p>
                     </div>
                 )
-
-                return (<div><ul className='msgs'>{msgs}</ul>{helpline}</div>)
+                return (<div><span className='msgs'>{msgs}</span>{helpline}</div>)
             } else {
-                return (<ul className='msgs'>{msgs}</ul>)
+                return (<span className='msgs'>{msgs}</span>)
             }
         } else {
             return
@@ -103,40 +101,23 @@ export class BibMain extends React.Component<{state: State}, {}> {
 
         const name = CONFIG.POLICY_PROJECT_SHORTNAME
         const help = CONFIG.POLICY_SHOW_HELP_LINKS ? (
-            <span>
-            <span>[<a id='biboverlay_toggle' href='javascript:;'
-                onClick={() => state.toggle()}>{
-                    state.isdisabled ? `Enable ${name}` : `Disable ${name}`}</a></span>
-            <span> (<a href={CONFIG.POLICY_DESCRIPTION_PAGE}>What is {name}?</a>)]</span>
-            </span>
+            <React.Fragment>
+                [<a id='biboverlay_toggle' href='javascript:;' onClick={() => state.toggle()}>
+                {state.isdisabled ? `Enable ${name}` : `Disable ${name}`}</a>
+                (<a href={CONFIG.POLICY_DESCRIPTION_PAGE}>What is {name}?</a>)]
+            </React.Fragment>
         ) : null
 
         if (bib && bib.availableDS && bib.availableDS.length === 0 && !CONFIG.POLICY_ALWAYS_DISPLAY_SECTION) {
             return null
         }
 
-        const alertbox = (
-            <div style={{display: 'block', position: 'relative', width: '100px'}}>
-                <span className='tooltiptext'>
-                    <span>Try the Bibliographic Explorer</span><br/>
-                    <span>(can be disabled at any time)</span><br/>
-                    <div>
-                    <span><a href='javascript:;' onClick={() => state.toggle()} className='green'>Enable</a></span>
-                    <span><a href='javascript:;' onClick={() => state.acknowledge()}>Don't show again</a></span>
-                    </div>
-                </span>
-            </div>
-        )
-
-        const showalert = state.show_alert ? alertbox : null
-
         return (
-            <div className='bib-main'>
+          <div className='bib-main'>
               <div className='references-citations'>
-                {showalert}
                 <h2>{CONFIG.POLICY_SECTION_HEADER}</h2>
                 <div className='references-citations-boxes'>
-                  <div className='bib-sidebar-source'>{this.generate_sources()}<span> {help}</span></div>
+                  <div className='bib-sidebar-source'>{this.generate_sources()}<span>{help}</span></div>
                   <div className='bib-sidebar-msgs'>{this.generate_messages()}</div>
                 </div>
               </div>

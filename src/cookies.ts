@@ -2,9 +2,7 @@ import * as Cookie from 'js-cookie'
 import * as CONFIG from './bib_config'
 
 const enum COOKIE_NAMES {
-    ACTIVE = 'active',
-    SEEN = 'seen',
-    LAST_SEEN_TIME = 'tseen',
+    ACTIVE = 'active'
 }
 
 class Cookies {
@@ -24,7 +22,6 @@ class Cookies {
         try {
             return JSON.parse(txtjson)
         } catch (e) {
-            console.log('Malformed settings, reset needed.')
             return {}
         }
     }
@@ -65,23 +62,6 @@ class Cookies {
 
     get active(): boolean {
         return this.get_boolean(COOKIE_NAMES.ACTIVE, CONFIG.POLICY_DEFAULT_ENABLED)
-    }
-
-    set seen(seen: boolean) {
-        this.set_boolean(COOKIE_NAMES.SEEN, seen)
-    }
-
-    get seen(): boolean {
-        return this.get_boolean(COOKIE_NAMES.SEEN, false)
-    }
-
-    set last_seen_time(time: number) {
-        this.set_value(COOKIE_NAMES.LAST_SEEN_TIME, time)
-    }
-
-    get last_seen_time(): number {
-        const val = this.get_value(COOKIE_NAMES.LAST_SEEN_TIME)
-        return val === undefined ? -1 : val
     }
 
     get_datasource(category: string): string {

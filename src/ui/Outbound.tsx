@@ -108,10 +108,10 @@ export function OutboundNoData(paper: Paper) {
     const ref = SidebarReference(paper)
 
     return (
-        <div className='bib-outbound' style={{margin: '0.3em'}}>
-            {ref}
-            <br/>
-            <a href={url} target='_blank'>Google Scholar</a>
-        </div>
+      <div className='bib-outbound' style={{margin: '0.3em'}}>
+        {ref}
+        <br/>
+        <a href={url} target='_blank' rel='noopener'>Google Scholar</a>
+      </div>
     )
 }

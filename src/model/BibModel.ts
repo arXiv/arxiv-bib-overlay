@@ -77,13 +77,11 @@ export class BibModel {
 
         this.configureAvailable(this.primary)
         if (this.availableDS.length !== 0) {
-            const savedDS = cookies.get_datasource(primary)
-
-            if (savedDS) {
-                const source = this.availableDS.filter((i) => i.shortname === savedDS)
-                this.setDS(source[0])
-            } else {
-                this.setDS(this.availableDS[0])
+            const savedDSname = cookies.get_datasource(primary)
+            const sources = savedDSname ?
+                this.availableDS.filter((i) => i.shortname === savedDSname) : this.availableDS
+            if (sources && sources.length !== 0) {
+                this.setDS(sources[0])
             }
         }
         this.record_api()

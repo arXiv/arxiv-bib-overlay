@@ -7,11 +7,12 @@ import { Outbound, OutboundCite } from './Outbound'
 export class PaperDiv extends React.Component<{paper: Paper}, {}> {
     render() {
         const paper = this.props.paper
-        let auths = paper.authors.map(au => (<a key={au.url || au.name} href={au.url} target='_blank'>{au.name}</a>))
+        let auths = paper.authors.map(au => (<a key={au.url || au.name} href={au.url}
+                                                target='_blank' rel='noopener'>{au.name}</a>))
 
         if (auths.length > MAX_AUTHORS) {
             auths = auths.slice(0, MAX_AUTHORS)
-            auths.push(<a key={paper.url} href={paper.url} target='_blank'>...</a>)
+            auths.push(<a key={paper.url} href={paper.url} target='_blank' rel='noopener'>...</a>)
         }
 
         const citeline = paper.citation_count ? `(citations: ${paper.citation_count})` : ''
@@ -22,7 +23,8 @@ export class PaperDiv extends React.Component<{paper: Paper}, {}> {
               </div>
               <div className='bib-paper-overhang'>
                 <div className='bib-paper'>
-                  <a className='notinfluential mathjax' href={paper.url} target='_blank'>{paper.title}</a>
+                  <a className='notinfluential mathjax' href={paper.url}
+                     target='_blank' rel='noopener'>{paper.title}</a>
                   <span className='jinfo'>
                     <span className='venue'>{paper.venue}</span>
                     <span className='year'>{paper.year}</span>
@@ -35,8 +37,8 @@ export class PaperDiv extends React.Component<{paper: Paper}, {}> {
                   <span>View article:</span>
                   <Outbound paper={this.props.paper}/>
                 </div>
+              </div>
             </div>
-          </div>
         )
   }
 }

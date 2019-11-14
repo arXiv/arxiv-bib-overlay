@@ -19,22 +19,16 @@ export const API_TIMEOUT = 30 * 1000
 // what the actual abs section is to be called
 export const POLICY_SECTION_HEADER = 'Bibliographic data'
 export const POLICY_PROJECT_SHORTNAME = 'Bibex'
-export const POLICY_DESCRIPTION_PAGE = 'https://labs.arxiv.org/projects/bibexplorer'
+export const POLICY_DESCRIPTION_PAGE = 'https://labs.arxiv.org'
 
 // whether or not to trap the api calls that are made for stats purposes
-export const POLICY_RECORD_API_STATS = true
+export const POLICY_RECORD_API_STATS = false
 
 // whether to track the datasource for each category using cookies
 export const POLICY_REMEMBER_DATASOURCE = true
 
 // if bibex is enabled or disabled by default
 export const POLICY_DEFAULT_ENABLED = false
-
-// if we should periodically remind users to check out the labs
-export const POLICY_PERIODICALLY_REMIND_USERS = true
-
-// how often we remind them
-export const POLICY_REMINDER_PERIOD = 30 * 24 * 60 * 60 // one month in seconds
 
 // display the "References and citations" section even when there is no datasource
 export const POLICY_ALWAYS_DISPLAY_SECTION = false

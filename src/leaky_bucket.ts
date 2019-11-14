@@ -62,12 +62,16 @@ export class CrossTabLeakyBucket {
         this.queue = []
 
         this.storename = CONFIG.POLICY_LIMITER_LOCALSTORAGE_KEY
-        this.storage = localStorage || window.localStorage
+        if (hasLocalstorage()) {
+            this.storage = localStorage || window.localStorage
+        } else {
+            this.storage = null
+        }
     }
 
     storage_load() {
-        const txt = this.storage.getItem(this.storename) || ''
         try {
+            const txt = this.storage.getItem(this.storename) || ''
             if (!txt) { return }
 
             const data = JSON.parse(txt)
@@ -82,21 +86,26 @@ export class CrossTabLeakyBucket {
     }
 
     storage_save() {
-        const out = {last: this.last, waitTime: this.waitTime, left: this.left}
-        this.storage.setItem(this.storename, JSON.stringify(out))
+        if (this.storage) {
+            const out = { last: this.last, waitTime: this.waitTime, left: this.left }
+            this.storage.setItem(this.storename, JSON.stringify(out))
+        }
     }
 
-    throttle(promise: () => Promise<any>) {
+    throttle(promise: () => Promise<any>): Promise<any> {
+        if (!this.storage) {
+            return promise()
+        }
         const mutex = new FastMutex()
         return new Promise(
             (resolve, reject) => {
                 mutex.lock(this.storename)
-                .then(() => this.storage_load())
-                .then(() => this._throttle())
-                .then(() => this.storage_save())
-                .then(() => mutex.release(this.storename))
-                .then(() => resolve())
-                .catch((e) => reject(e))
+                    .then(() => this.storage_load())
+                    .then(() => this._throttle())
+                    .then(() => this.storage_save())
+                    .then(() => mutex.release(this.storename))
+                    .then(() => resolve())
+                    .catch((e) => reject(e))
             }
         ).then(() => promise())
     }
@@ -105,7 +114,7 @@ export class CrossTabLeakyBucket {
         let waitTime: number = 0
         const now = Date.now()
 
-        this.left = Math.min(((now  - this.last) / (1000 * this.refillRate)) + this.left, this.capacity)
+        this.left = Math.min(((now - this.last) / (1000 * this.refillRate)) + this.left, this.capacity)
         this.last = now
 
         if (this.left >= 1 && (!this.queue.length || fromQueue)) {
@@ -149,6 +158,11 @@ export class CrossTabLeakyBucket {
             )
         }
     }
+}
+
+function hasLocalstorage() {
+    return ((typeof localStorage !== 'undefined' && localStorage !== null) ||
+        (typeof window !== 'undefined' && window !== null && window.localStorage !== null))
 }
 
 export const api_bucket = new CrossTabLeakyBucket(CONFIG.POLICY_LIMITER_RATE, 1, CONFIG.POLICY_LIMITER_CAPACITY)
