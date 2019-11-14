@@ -413,7 +413,8 @@ h1.bib-header span {
 
 .bib-sidebar-source span {
     position: relative;
-    margin-right: 5px;
+    margin-right: 0.2em;
+    margin-left: 0.2em;
 }
 
 .bib-sidebar-source img {
@@ -614,4 +615,8 @@ h1.bib-header span {
     border-width: 1px 0 0 0;
     border-color: #555;
     border-style: solid;
+}
+
+.bib-ds-select{
+    margin-right: 0em;
 }
