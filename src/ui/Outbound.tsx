@@ -30,7 +30,7 @@ const imgstyle = {height: '18px', width: 'auto'}
 const _link = (name: string, desc: string, url: string|undefined, icon: any, external: boolean = true) => {
     if (!url) {
         return null
-    } 
+    }
     return (
         <span key={name + url}>
             <a className={name} title={desc} href={url} target={external ? '_blank' : '_self'}>
@@ -63,7 +63,7 @@ const make_link = {
     cite(ref: Paper) {return _modal('cite', 'Citation entry', ref, citeIcon)},
     scholar(ref: Paper) {return _link('scholar', 'Google Scholar', google_scholar_query(ref), scholarIcon)}
 }
-    
+
 export class Outbound extends React.Component<{paper: Paper}, {}> {
     render() {
         const ref = this.props.paper
@@ -72,9 +72,9 @@ export class Outbound extends React.Component<{paper: Paper}, {}> {
         return(
             <div className = 'bib-outbound' >
                 {outbounds}
-            </div>            
+            </div>
         )
-    }   
+    }
 }
 
 export class OutboundCite extends React.Component<{paper: Paper}, {}> {
@@ -110,8 +110,6 @@ export function OutboundNoData(paper: Paper) {
     return (
       <div className='bib-outbound' style={{margin: '0.3em'}}>
         {ref}
-        <br/>
-        <a href={url} target='_blank' rel='noopener'>Google Scholar</a>
       </div>
     )
 }
