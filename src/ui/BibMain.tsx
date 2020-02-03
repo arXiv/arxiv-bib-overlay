@@ -104,7 +104,7 @@ export class BibMain extends React.Component<{state: State}, {}> {
             <React.Fragment>
                 [<a id='biboverlay_toggle' href='javascript:;' onClick={() => state.toggle()}>
                 {state.isdisabled ? `Enable ${name}` : `Disable ${name}`}</a>
-                (<a href={CONFIG.POLICY_DESCRIPTION_PAGE}>What is {name}?</a>)]
+                &nbsp;(<a href={CONFIG.POLICY_DESCRIPTION_PAGE}>What is {name}?</a>)]
             </React.Fragment>
         ) : null
 
