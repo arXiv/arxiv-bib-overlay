@@ -104,7 +104,6 @@ function SidebarReference(paper: Paper) {
 export function OutboundNoData(paper: Paper) {
     if (!paper) { return (<div></div>) }
 
-    const url = google_scholar_query(paper)
     const ref = SidebarReference(paper)
 
     return (
