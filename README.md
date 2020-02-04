@@ -13,7 +13,7 @@ Then, build the package using:
 
     npm run build
 
-To ease remaning of files, etc there is a small shell script which will pull
+To ease renaming of files, etc. there is a small shell script which will pull
 together all built deployment files. You can run it with:
 
     ./deploy-static/pack-to-deploy.sh
