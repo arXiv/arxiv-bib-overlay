@@ -53,20 +53,22 @@ export class BibMain extends React.Component<{state: State}, {}> {
             dataerror = false
         }
 
-        const msgs = msglist.map(
-            (i) => (<li className='msg'>{i.length < 80 ? i : i.slice(0, 80) + '...'}</li>)
-        )
-
+        const msgs = [ (<div key='bogusx'/>)]
+        for (const [idx, msg] of msglist.entries()) {
+            const itm = (<li key={idx} className='msg'>{msg.length < 80 ? msg : msg.slice(0, 80) + '...'}</li>)
+            msgs.push(itm)
+        }
+        
         if (msgs.length > 0) {
-            if (ds && dataerror) {
-                const helpline = (
-                    <div>
-                    <p>Articles recently added or updated may not have propagated to data providers yet.
-                       If you believe there is an error,
-                       contact <b><a href={ds.help}>{ds.longname}</a></b>.</p>
-                    </div>
-                )
-                return (<div><span className='msgs'>{msgs}</span>{helpline}</div>)
+                if (ds && dataerror) {
+                    const helpline = (
+                        <div>
+                            <p>Articles recently added or updated may not have propagated to data providers yet.
+                                If you believe there is an error,
+                                contact <b><a href={ds.help}>{ds.longname}</a></b>.</p>
+                        </div>
+                    )
+                    return (<div><span className='msgs'>{msgs}</span>{helpline}</div>)
             } else {
                 return (<span className='msgs'>{msgs}</span>)
             }
