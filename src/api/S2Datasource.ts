@@ -1,6 +1,6 @@
 import icon from '../assets/icon-s2.png'
 import sourceLogo from '../assets/source-s2.png'
-//import { S2_API_KEY } from '../bib_config'
+import { S2_API_KEY } from '../bib_config'
 import { CATEGORIES, DataError, encodeQueryData, QueryError, RateLimitError } from '../bib_lib'
 import { api_bucket } from '../leaky_bucket'
 import { BasePaper, DataSource, DOWN, PaperGroup, UP } from './document'
@@ -145,14 +145,46 @@ export class S2Datasource implements DataSource {
 
         this.aid = arxiv_id
 
-        return api_bucket.throttle(
-            () => fetch(this.url_paper(this.aid), {
+        const mode: any = 'no-key-yes-cors'
+        // 'no-key-blank-cors' // 'no-key-no-cors', 'no-key-yes-cors', 'with-api-key'
+        let params = {}
+        
+        if ( mode === 'no-key-blank-cors') {
+            this.api_url =  'https://api.semanticscholar.org'
+            params = {
+                redirect: 'follow'
+            }
+        }
+        if ( mode === 'no-key-no-cors' ) {
+            this.api_url =  'https://api.semanticscholar.org'
+            params = {
+                mode: 'no-cors',
+                redirect: 'follow'
+            }
+        }
+        if ( mode === 'no-key-yes-cors' ) {
+            this.api_url =  'https://api.semanticscholar.org'
+            params = {
                 mode: 'cors',
-                // headers: {
-                //     'x-api-key': S2_API_KEY
-                // },
-                redirect: 'follow',
-            })
+                redirect: 'follow'
+            }
+        }
+        if ( mode === 'with-api-key') {
+            this.api_url =  'https://partner.semanticscholar.org'
+            params = {
+                mode: 'cors', //needed to send custom header x-api-key
+                headers: {
+                     'x-api-key': S2_API_KEY
+                },
+                redirect: 'follow'
+            }
+        }
+        
+        console.log('Doing request to semantic scholar in ' + mode)
+        
+        return api_bucket.throttle(
+            () => fetch(this.url_paper(this.aid),
+                        params)
                 .catch((e) => {throw new QueryError('Query prevented by browser -- CORS, firewall, or unknown error')})
                 .then(resp => error_check(resp))
                 .then(resp => resp.json())
