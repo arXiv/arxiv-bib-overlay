@@ -89,7 +89,7 @@ export class AdsDatasource implements DataSource {
         const ncites = output.citations.count
         const nrefs = output.references.count
 
-        if (nrefs === 0 || (ncites === 0 && nrefs === 0)) {
+        if (ncites === 0 && nrefs === 0) {
             throw new DataError('No references or citations provided by data provider.')
         }
 
