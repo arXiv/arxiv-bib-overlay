@@ -121,10 +121,11 @@ export class S2Datasource implements DataSource {
             }
         }
 
-        if (output.references === undefined || (output.references && output.references.count === 0)) {
-            throw new DataError(
-                'No references available from data provider.'
-            )
+        const rn = output.references !== undefined ? output.references.count : 0
+        const cn = output.citations !== undefined ? output.citations.count : 0
+                
+        if (rn === 0 && cn === 0 ) {
+            throw new DataError( 'No references available from data provider.' )
         }
 
         const pref = Number(this.portion_unknown(output.references).toFixed(2))

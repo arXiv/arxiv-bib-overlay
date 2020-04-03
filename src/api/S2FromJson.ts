@@ -2,6 +2,7 @@
 //import * as unidecode from 'unidecode'
 import { encodeQueryData, remove_puctuation } from '../bib_lib'
 import { Author, Paper } from './document'
+import { BasePaper } from './document'
 import { S2Datasource } from './S2Datasource'
 
 function remove_title_dates(title: string): string {
@@ -61,7 +62,7 @@ export class S2ToPaper {
         return json.authors.map(toauth)
     }
 
-    reformat_document(json: any, index: number) {
+    reformat_document(json: any, index: number): BasePaper {
         const newdoc: Paper = new Paper(json.arxivId)
 
         if (json.title) {
