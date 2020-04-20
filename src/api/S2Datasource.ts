@@ -21,8 +21,7 @@ export class S2Datasource implements DataSource {
     longname = 'Semantic Scholar'
     categories = CATEGORIES
     homepage = 'https://semanticscholar.org'
-    //    api_url =  'https://partner.semanticscholar.org'
-    api_url =  'https://api.semanticscholar.org'
+    api_url =  'https://partner.semanticscholar.org'
     api_params = {include_unknown_references: 'true'}
 
     sorting = {
@@ -47,8 +46,8 @@ export class S2Datasource implements DataSource {
 
     url_paper(arxivid: string) {
         const params = encodeQueryData(this.api_params)
-        return `${this.api_url}/arXiv:${arxivid}?${params}`
-    }
+        return `${this.api_url}/v1/paper/arXiv:${arxivid}?${params}`
+   } 
 
     portion_unknown(papers: PaperGroup | undefined) {
         let total = 0
@@ -146,46 +145,12 @@ export class S2Datasource implements DataSource {
 
         this.aid = arxiv_id
 
-        const mode: any = 'no-key-yes-cors'
-        // 'no-key-blank-cors' // 'no-key-no-cors', 'no-key-yes-cors', 'with-api-key'
-        let params = {}
-        
-        if ( mode === 'no-key-blank-cors') {
-            this.api_url =  'https://api.semanticscholar.org'
-            params = {
-                redirect: 'follow'
-            }
-        }
-        if ( mode === 'no-key-no-cors' ) {
-            this.api_url =  'https://api.semanticscholar.org'
-            params = {
-                mode: 'no-cors',
-                redirect: 'follow'
-            }
-        }
-        if ( mode === 'no-key-yes-cors' ) {
-            this.api_url =  'https://api.semanticscholar.org'
-            params = {
-                mode: 'cors',
-                redirect: 'follow'
-            }
-        }
-        if ( mode === 'with-api-key') {
-            this.api_url =  'https://partner.semanticscholar.org'
-            params = {
-                mode: 'cors', //needed to send custom header x-api-key
-                headers: {
-                     'x-api-key': S2_API_KEY
-                },
-                redirect: 'follow'
-            }
-        }
-        
-        console.log('Doing request to semantic scholar in ' + mode)
-        
         return api_bucket.throttle(
             () => fetch(this.url_paper(this.aid),
-                        params)
+                        {
+                mode: 'cors',
+                headers: { 'x-api-key': S2_API_KEY }
+            })
                 .catch((e) => {throw new QueryError('Query prevented by browser -- CORS, firewall, or unknown error')})
                 .then(resp => error_check(resp))
                 .then(resp => resp.json())
