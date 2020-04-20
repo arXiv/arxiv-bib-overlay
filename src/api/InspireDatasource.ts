@@ -20,21 +20,21 @@ export class InspireDatasource implements DataSource {
     shortname = 'INSPIRE'
     longname = 'INSPIRE HEP'
     categories = new Set(['hep-th', 'hep-ex', 'hep-ph', 'hep-lat', 'gr-qc'])
-    homepage = 'http://inspirehep.net'
+    homepage = 'https://inspirehep.net'
     icon = icon
     logo = sourceLogo
     pagelength = MAXCOUNT
 
-    // https://labs.inspirehep.net/api/literature?q=refersto:recid:1432705&sort=mostcited&page=1&size=5
-    // https://labs.inspirehep.net/api/literature/1124337/references
-    // https://labs.inspirehep.net/api/literature/1124337/citations?page=1&size=100&sort=mostcited
-    // https://labs.inspirehep.net/api/literature?sort=mostcited&size=25&page=1&q=1207.7214
-    // https://labs.inspirehep.net/api/literature?q=arxiv:1602.03837
+    // https://inspirehep.net/api/literature?q=refersto:recid:1432705&sort=mostcited&page=1&size=5
+    // https://inspirehep.net/api/literature/1124337/references
+    // https://inspirehep.net/api/literature/1124337/citations?page=1&size=100&sort=mostcited
+    // https://inspirehep.net/api/literature?sort=mostcited&size=25&page=1&q=1207.7214
+    // https://inspirehep.net/api/literature?q=arxiv:1602.03837
     //
 
-    url_paper = 'http://inspirehep.net/record'
-    url_author = 'https://labs.inspirehep.net/authors'
-    api_url = 'https://labs.inspirehep.net/api/literature'
+    url_paper = 'https://inspirehep.net/record'
+    url_author = 'https://inspirehep.net/authors'
+    api_url = 'https://inspirehep.net/api/literature'
     api_params = {
         sort: 'mostcited',
         page: 1,
