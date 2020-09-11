@@ -159,8 +159,6 @@ function pageElement(name: string, container: string,  insertbefore: string): HT
 }
 
 export function pageElementMain(): HTMLElement {
-    // TODO
-    // return pageElement('bib-main', 'leftcolumn', 'submission-history')
     return pageElement('bib-main', 'labs-display-bib', 'labs-content-placeholder')
 }
 
