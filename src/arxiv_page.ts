@@ -108,7 +108,7 @@ function get_current_article_url(): string {
         return ''
     }
 
-    const aid = match[0]    
+    const aid = match[0]
     if (!aid || aid.length <= 5) {
         console.log('No valid article ID extracted from the browser location.')
         return ''
@@ -154,11 +154,14 @@ function pageElement(name: string, container: string,  insertbefore: string): HT
     const elemContainer = document.getElementsByClassName(container)[0]
     const elemInsertBefore = document.getElementsByClassName(insertbefore)[0]
     elemContainer.insertBefore(main, elemInsertBefore)
+
     return main as HTMLElement
 }
 
 export function pageElementMain(): HTMLElement {
-    return pageElement('bib-main', 'leftcolumn', 'submission-history')
+    // TODO
+    // return pageElement('bib-main', 'leftcolumn', 'submission-history')
+    return pageElement('bib-main', 'labs-display-bib', 'labs-content-placeholder')
 }
 
 export function pageElementSidebar(): HTMLElement {
