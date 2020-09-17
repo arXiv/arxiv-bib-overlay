@@ -1,13 +1,11 @@
 import { action, computed, observable } from 'mobx'
-import { cookies } from '../cookies'
 import { BibModel } from './BibModel'
 
 export enum Status {
     LOADED = 'loaded',
     LOADING = 'loading',
     FAILED = 'failed',
-    INIT = 'init',
-    DISABLED = 'disabled'
+    INIT = 'init'
 }
 
 export class State {
@@ -38,35 +36,13 @@ export class State {
         return this.state === Status.LOADING
     }
 
-    @computed
-    get isdisabled(): boolean {
-        return this.state === Status.DISABLED
-    }
-
     @action
-    init_from_cookies() {
-        this.state = cookies.active ? Status.INIT : Status.DISABLED
-    }
-
-    @action
-    toggle() {
-        if (this.isdisabled) {
-            this.state = Status.INIT
-            this.bibmodel.reloadSource()
-            cookies.active = true
-        } else {
-            this.state = Status.DISABLED
-            cookies.active = false
-        }
-    }
-
-    @action
-    message(msg: string, exception: any = null) {
+    message(msg: string) {
         this.messages.push(msg)
     }
 
     @action
-    error(err: any, exception: any = null) {
+    error(err: any) {
         this.errors.push(err)
         this.state = Status.FAILED
     }

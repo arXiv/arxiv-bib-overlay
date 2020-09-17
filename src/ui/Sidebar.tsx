@@ -8,12 +8,7 @@ import { Outbound, OutboundCite, OutboundNoData } from './Outbound'
 @observer
 export class Sidebar extends React.Component<{state: State}, {}> {
     public render() {
-        const state = this.props.state
         const bib = this.props.state.bibmodel
-
-        if (state.isdisabled) {
-            return OutboundNoData(bib.arxiv_paper)
-        }
 
         if (!bib || !bib.paper || !bib.paper.authors) {
             return OutboundNoData(bib.arxiv_paper)

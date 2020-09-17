@@ -1,4 +1,4 @@
-Bibliographic Explorer (bibex)
+Bibliographic Explorer (Formerly named bibex)
 ==============================
 
 Overview

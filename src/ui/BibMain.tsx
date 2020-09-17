@@ -9,12 +9,7 @@ import { spinner } from './Spinner'
 @observer
 export class BibMain extends React.Component<{state: State}, {}> {
     generate_sources() {
-        const state = this.props.state
         const bib = this.props.state.bibmodel
-
-        if (state.isdisabled) {
-            return null
-        }
 
         if (!bib.availableDS || bib.availableDS.length === 0) {
             return (<div><span>No data provider available</span></div>)
@@ -37,10 +32,6 @@ export class BibMain extends React.Component<{state: State}, {}> {
     generate_messages() {
         const state = this.props.state
         const ds = this.props.state.bibmodel.currentDS
-
-        if (state.isdisabled) {
-            return null
-        }
 
         let dataerror = false
         let msglist: string[] = []
@@ -84,7 +75,7 @@ export class BibMain extends React.Component<{state: State}, {}> {
 
         let body: JSX.Element | null = null
 
-        if (state.isfailed || state.isdisabled) {
+        if (state.isfailed) {
             body = null
         }
 
@@ -104,9 +95,7 @@ export class BibMain extends React.Component<{state: State}, {}> {
         const name = CONFIG.POLICY_PROJECT_SHORTNAME
         const help = CONFIG.POLICY_SHOW_HELP_LINKS ? (
             <React.Fragment>
-                [<a id='biboverlay_toggle' href='javascript:;' onClick={() => state.toggle()}>
-                {state.isdisabled ? `Enable ${name}` : `Disable ${name}`}</a>
-                &nbsp;(<a href={CONFIG.POLICY_DESCRIPTION_PAGE}>What is {name}?</a>)]
+                [(<a href={CONFIG.POLICY_DESCRIPTION_PAGE}>What is {name}?</a>)]
             </React.Fragment>
         ) : null
 

@@ -121,7 +121,7 @@ export class BibModel {
         }
 
         const cats = get_categories().map((i) => i[1]).join(':')
-        const active = state.isdisabled ? 'disabled' : 'enabled'
+        const active =  'enabled'
         const ds = state.bibmodel.currentDS ? state.bibmodel.currentDS.shortname : 'none'
         fetch(`${API_STATS_IMAGE}?${ds}&${cats}&${active}&${this.visitid}`)
     }
