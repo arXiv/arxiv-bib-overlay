@@ -8,4 +8,5 @@ DIR=deploy-static/deploy
 mkdir -p $DIR
 cp build/static/js/main*.js $DIR/bibex.js
 cp build/static/css/main*.css $DIR/bibex.css
-cp src/assets/apistats.png $DIR/apistats.png
+cp src/assets/* $DIR/
+
