@@ -29,7 +29,7 @@ export class AdsDatasource implements DataSource {
     base_url = 'https://api.adsabs.harvard.edu'
     homepage = 'https://ui.adsabs.harvard.edu'
     outbound_url = 'https://ui.adsabs.harvard.edu'
-    token_url = 'https://bibex-ads-token.development.arxiv.org/token'
+    token_url = 'https://services.arxiv.org/bibex/ads/token'
     api_url = `${this.base_url}/v1/search/query`
     api_key = '3vgYvCGHUS12SsrgoIfbPhTHcULZCByH8pLODY1x'
 
